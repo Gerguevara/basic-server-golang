@@ -28,3 +28,9 @@ func (s *Server) Listen() error {
 	}
 	return nil
 }
+
+// esta funcion hace que el array de roules que el server tiene, cree un nuevo key y le asigne como valos una funcion
+// recordar que rules es un map con llave y valor
+func (s *Server) Handle(path string, handler http.HandlerFunc) {
+	s.router.rules[path] = handler
+}
