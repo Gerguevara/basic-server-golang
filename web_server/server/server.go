@@ -1,6 +1,9 @@
 package server
 
-import "net/http"
+import (
+	"net/http"
+	md "web_server/middlewares"
+)
 
 type Server struct {
 	port string
@@ -33,4 +36,12 @@ func (s *Server) Listen() error {
 // recordar que rules es un map con llave y valor
 func (s *Server) Handle(path string, handler http.HandlerFunc) {
 	s.router.rules[path] = handler
+}
+
+// esta funcion permite agregar y manesjar middlewaress de forma dinamica
+func (s *Server) AddMiddleware(f http.HandlerFunc, middlewares ...md.Middleware) http.HandlerFunc {
+	for _, m := range middlewares {
+		f = m(f)
+	}
+	return f
 }
