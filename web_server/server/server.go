@@ -2,7 +2,7 @@ package server
 
 import (
 	"net/http"
-	md "web_server/middlewares"
+	tp "web_server/types"
 )
 
 type Server struct {
@@ -44,7 +44,7 @@ func (s *Server) Handle(method, path string, handler http.HandlerFunc) {
 }
 
 // esta funcion permite agregar y manesjar middlewaress de forma dinamica
-func (s *Server) AddMiddleware(f http.HandlerFunc, middlewares ...md.Middleware) http.HandlerFunc {
+func (s *Server) AddMiddleware(f http.HandlerFunc, middlewares ...tp.Middleware) http.HandlerFunc {
 	for _, m := range middlewares {
 		f = m(f)
 	}

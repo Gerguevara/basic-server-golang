@@ -5,10 +5,11 @@ import (
 	"log"
 	"net/http"
 	"time"
+	md "web_server/types"
 )
 
 // primer middleware
-func CheckAuth() Middleware {
+func CheckAuth() md.Middleware {
 	return func(f http.HandlerFunc) http.HandlerFunc {
 		return func(w http.ResponseWriter, r *http.Request) {
 			flag := true
@@ -23,7 +24,7 @@ func CheckAuth() Middleware {
 }
 
 // otro middleware
-func Logger() Middleware {
+func Logger() md.Middleware {
 	return func(f http.HandlerFunc) http.HandlerFunc {
 		return func(w http.ResponseWriter, r *http.Request) {
 			//logica del middleware
