@@ -23,10 +23,9 @@ func CheckAuth() Middleware {
 }
 
 // otro middleware
-func Loggin() Middleware {
+func Logger() Middleware {
 	return func(f http.HandlerFunc) http.HandlerFunc {
 		return func(w http.ResponseWriter, r *http.Request) {
-
 			//logica del middleware
 			start := time.Now()
 			// Defer una funcion anonima para que se ejecute justo al final de esta funcion

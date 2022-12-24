@@ -34,8 +34,13 @@ func (s *Server) Listen() error {
 
 // esta funcion hace que el array de roules que el server tiene, cree un nuevo key y le asigne como valos una funcion
 // recordar que rules es un map con llave y valor
-func (s *Server) Handle(path string, handler http.HandlerFunc) {
-	s.router.rules[path] = handler
+func (s *Server) Handle(method, path string, handler http.HandlerFunc) {
+	// verifica si existe el mapa de nivel de ruta, si no existe lo crea y luego crea la signacion del verbo http
+	_, exist := s.router.rules[path]
+	if !exist {
+		s.router.rules[path] = make(map[string]http.HandlerFunc)
+	}
+	s.router.rules[path][method] = handler
 }
 
 // esta funcion permite agregar y manesjar middlewaress de forma dinamica
